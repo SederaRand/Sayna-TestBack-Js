@@ -191,15 +191,16 @@ function putPasswordUser(req, res){
     let token = req.params.token;
     let userNewPassword = req.body;
     var hashedPassword = bcrypt.hashSync(userNewPassword.password, 8);
+    userNewPassword.password = hashedPassword;
     const decoded = jwt.verify(token, config.secret);  
     var userId = decoded.id;
 
-    User.findByIdAndUpdate(userId, hashedPassword, function (err, user) {
+    User.findByIdAndUpdate(userId, userNewPassword, function (err, user) {
         if(user == null){
             return res.status(200).send({error: 'Utilisateur introuvable'});
         }
         else{
-            return res.status(200).send("Utilisateur modifié avec succes.");
+            return res.status(200).send("Mot de passe modifié avec succes.");
         }
     });  
 }
