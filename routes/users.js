@@ -39,7 +39,7 @@
      user.token = token;
      user.save((err) => {        
         if (err) {
-            res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
+            return res.status(500).send('L une ou plusieurs données obligatoire sont manquantes ou email déjà.');
          }
         res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succes!`, auth: true, user:user});
      });
