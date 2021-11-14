@@ -11,7 +11,6 @@ mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
 
 //mongodb+srv://sa:0UQhnXNx92uLvES9.$n@cluster0.zhjx4.mongodb.net/sayna?retryWrites=true&w=majority
-//
 const uri = 'mongodb+srv://sa:0UQhnXNx92uLvES9@cluster0.zhjx4.mongodb.net/sayna?retryWrites=true&w=majority';
 
 const options = {

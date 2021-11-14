@@ -15,7 +15,7 @@
 
  // index
  function index(req,res){
-    res.send('Welcome to sayna API NODE JS');
+    res.send('Bienvenue sur l API NODE JS');
 }
 
  // register (POST)
@@ -31,10 +31,6 @@
      user.sexe = req.body.sexe;
      user.role = req.body.role;
  
-    
-     console.log("L'utilisateur a bien été crée avec succès");
-     console.log(user);
- 
      // if user is registered without errors
      // create a token
      var token = jwt.sign({ id: user._id }, config.secret, {
@@ -42,11 +38,10 @@
      });
      user.token = token;
      user.save((err) => {        
-         if (err) {
+        if (err) {
             res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
          }
-
-         res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succes!`, auth: true, user:user});
+        res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succes!`, auth: true, user:user});
      });
  }
 
@@ -109,8 +104,7 @@
  
  //logout 
  function logout(req, res) {
-    res.send('L utilisateur a été déconnecté avec succes');
-     res.status(200).send({ auth: true, token: null });
+    return res.status(200).send({ auth: true, token: null, message:"L utilisateur a été déconnecté avec succes" });
  }
  
  
@@ -122,32 +116,31 @@
          if(jwt.verify(bearerToken, config.secret))  {
              const userId = req.headers['userid'];
              User.findOne({'_id': userId}, (err, user) => {
-                 if(err) {
-                     
+                if(err) {                     
                     return res.status(401).send({error: 'Access denied'})
-                 }
-                 req.user = user;      
-                 if(user && user.role === Role.Admin) {
-                     User.findOne({'identifiant._id': userId}, (err, user) => {
-                         req.userId = user._id;
-                         next();
-                     })
-                 } else if(user && user.role === Role.Guest) {
-                     User.findOne({'identifiant._id': userId}, (err, user) => {
-                         req.userId = user._id;
-                         next();
-                     })
+                }
+                req.user = user;      
+                if(user && user.role === Role.Admin) {
+                    User.findOne({'identifiant._id': userId}, (err, user) => {
+                        req.userId = user._id;
+                        next();
+                    })
+                } else if(user && user.role === Role.Guest) {
+                    User.findOne({'identifiant._id': userId}, (err, user) => {
+                        req.userId = user._id;
+                        next();
+                    })
                  } else {
-                     next();
-                 }
+                    next();
+                }
              });
              // console.log("role", user)
-         }
-         else
+        }
+        else
             return res.status(401).send({error: 'Access denied'})
-     } else {
+    } else {
         return res.status(401).send({error: 'Access denied'})
-     }
+    }
  }
 
  // Get by TOKEN a user
@@ -161,8 +154,7 @@ function getUser(req, res){
             return res.status(200).send({error: 'Utilisateur introuvable'});
         }
         res.json(user);
-    })
-}
+    })}
 
 // Put informations of user expected Password
 function putUser(req, res){
