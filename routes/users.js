@@ -91,15 +91,18 @@
                         firstname: user.firstname,
                         lastname: user.lastname
                     }
+                    res.send('Compte Visiteur');
                      res.status(200).send({ auth: true, user: response});
+
                  })
              } else if(user.role === Role.Admin) {
                  res.status(200).send({ auth: true, user: response});
+                 res.send('Compte Administrateur');
              } else {
-                 res.status(401).send({error: 'Access denied'});
+                 res.status(401).send({error: 'Access refusé'});
              }
          } else {
-             res.status(401).send({error: 'Access denied'});
+             res.status(401).send({error: 'Access refusé'});
          }
          // return the information including token as JSON
          //res.json(user);
@@ -108,6 +111,7 @@
  
  //logout (GET)
  function logout(req, res) {
+    res.send('L utilisateur a été déconnecté avec succes');
      res.status(200).send({ auth: true, token: null });
  }
  
@@ -155,8 +159,7 @@
      user.sexe = user_.sexe;
      user.email = user_.email;
      user.role = user_.role;
-     user.password = hashedPassword;
- 
+     user.password = hashedPassword; 
  
      console.log("POST user reçu :");
      console.log(user);
