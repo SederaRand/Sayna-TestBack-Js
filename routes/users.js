@@ -5,7 +5,8 @@
  var bcrypt = require('bcryptjs');
  var config = require('../config'); // get config file
  var User = require('../model/user');
- 
+ var mongoose = require('mongoose');
+
  // Type of Role users
  const Role = {
     Admin: "admin",
@@ -177,7 +178,21 @@ function putUser(req, res){
 
 // Delete a user
 function deleteUser(req, res){
-    
+    let token = req.params.token;
+    const decoded = jwt.verify(token, config.secret);  
+    var userId = decoded.id;
+    console.log(userId);
+    // var _id = mongoose.Types.ObjectId(userId);
+    // console.log(">>>>>>>>>>>>>>" + userId);
+
+    User.findByIdAndRemove(userId, function (err, docs) {
+        if (err){
+            res.status(500).send("There was a problem deleting the user.");
+        }
+        else{
+            res.status(200).send("Utilisateur supprimé.");
+        }
+    });
 }
  
  module.exports = {
