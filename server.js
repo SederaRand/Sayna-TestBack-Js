@@ -68,8 +68,11 @@ app.route(prefix + '/login')
 app.route(prefix + '/user/:token')
   .delete(user.deleteUser)
 
-  app.route(prefix + '/user/:token')
+app.route(prefix + '/user/:token')
   .put(user.putUser)
+
+app.route(prefix + '/user/changePassword/:token')
+  .put(user.putPasswordUser)
 
 
 // On démarre le serveur

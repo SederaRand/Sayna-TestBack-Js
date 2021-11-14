@@ -1,8 +1,8 @@
 class Role {
 
-    static ADMIN = "admin";
+    static ADMIN = "Admin";
     
-    static GUEST = "guest";
+    static GUEST = "Guest";
 
 }
 
