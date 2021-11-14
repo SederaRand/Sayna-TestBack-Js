@@ -33,11 +33,11 @@
          if (err) {
             res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
          }
-         res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succè!`, auth: true, user:user});
+
+         res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succes!`, auth: true, user:user});
      });
  }
- 
- 
+  
  const Role = {
      Admin: "admin",
      Guest: "guest"
@@ -48,12 +48,16 @@
  function doLogin(req, res) {
      let userEmail = req.body.email;
      User.findOne({ email: userEmail }, (err, user) => {
-         if (err) return res.status(500).send('Error on the server.');
-         if (!user) return res.status(404).send('No user found.');
+         if (err) return res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
+         else if (!user) return res.status(404).send('No user found.');
          // check if the password is valid
          var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-         if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
- 
+         if (!passwordIsValid)
+         {
+            res.send('Nom d utilisateur ou Mot de passe incorrecte');
+            return res.status(401).send({ auth: false, token: null });
+         }
+
          // if user is found and password is valid
          // create a token
          var token = jwt.sign({ id: user._id }, config.secret, {
