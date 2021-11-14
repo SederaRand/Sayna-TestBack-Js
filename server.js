@@ -45,6 +45,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 let port = process.env.PORT || 8010;
+let hostname = "https://api-node-sayna.herokuapp.com"
+
 
 // les routes
 const prefix = '/api';
@@ -75,7 +77,7 @@ app.route(prefix + '/user/changePassword/:token')
 
 
 // On démarre le serveur
-app.listen(port, "0.0.0.0");
+app.listen(hostname);
 console.log('Serveur démarré  sur http://localhost:' + port);
 
 module.exports = app;
