@@ -1,21 +1,10 @@
-# assignmentback
+# API NODE JS
 
-##### N° 14 - Laza Nomentsoa RABESANDRATANA
-##### N° 30 - Hobiniaina Mirado RAMAHATSANGIARISON
+##### Sedera Nirina Randriamanantenasoa
 
-#
+### Consigne si vous voulez lancer en local l'API :
+### 1 - npm install
+### 2 - changer la chaine de connction à la base de données si vous voulez utilisé une autre base MongoDb
 
-### Compte admin pour se connecter
-##### Email : admin@domain.fr
-##### Mots de passe : Password1234!
+##### Il y a aussi une collection Postman à importer pour faciliter l'utilisation de l'api
 
-#
-
-### Queries url :  
-- https://docs.mongodb.com/manual/reference/method/js-collection/
-- https://mongoosejs.com/docs/queries.html
-
-#
-
-### Authentification avec JSON Web Tokens
-https://www.freecodecamp.org/news/securing-node-js-restful-apis-with-json-web-tokens-9f811a92bb52
