@@ -163,7 +163,6 @@ function getUser(req, res){
     let userId = req.params.token;
     User.findOne({ id: userId._id }, (err, user) => {
         if (err) {
-            // verifyToken(req, res);
             res.send('Le token envoyez n existe pas');
             res.send(err) 
         }
@@ -176,7 +175,22 @@ function getUser(req, res){
 
 // Put information of user
 function putUser(req, res){
+    let token = req.params.token;
+    let userNew = req.body;
+    const decoded = jwt.verify(token, config.secret);  
+    var userId = decoded.id;
 
+    User.findByIdAndUpdate(userId, userNew, function (err, user) {
+        if (userNew.password != null){
+            res.status(500).send("Veuillez utilisez un autre endpoint pour modifier le mot de passe de l'utilisateur");
+        }
+        else if(user == null){
+            res.status(200).send({error: 'Utilisateur introuvable'});
+        }
+        else{
+            res.status(200).send("Utilisateur modifié avec succes.");
+        }
+    });
 }
 
 // Delete a user
@@ -187,10 +201,10 @@ function deleteUser(req, res){
 
     User.findByIdAndRemove(userId, function (err, user) {
         if (err){
-            res.status(500).send("Utilisateur inexistant");
+            res.status(500).send("Utilisateur introuvable");
         }
         else if(user == null){
-            res.status(200).send({error: 'Utilisateur n existe même pâs'});
+            res.status(200).send({error: 'Utilisateur introuvable'});
         }
         else{
             res.status(200).send("Utilisateur supprimé.");

@@ -68,6 +68,9 @@ app.route(prefix + '/login')
 app.route(prefix + '/user/:token')
   .delete(user.deleteUser)
 
+  app.route(prefix + '/user/:token')
+  .put(user.putUser)
+
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
