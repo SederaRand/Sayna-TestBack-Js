@@ -5,7 +5,8 @@
  var bcrypt = require('bcryptjs');
  var config = require('../config'); // get config file
  var User = require('../model/user');
- 
+ var mongoose = require('mongoose');
+
  // Type of Role users
  const Role = {
     Admin: "admin",
@@ -166,6 +167,9 @@ function getUser(req, res){
             res.send('Le token envoyez n existe pas');
             res.send(err) 
         }
+        else if(user == null){
+            res.status(200).send({error: 'Utilisateur introuvable'});
+        }
         res.json(user);
     })
 }
@@ -177,7 +181,21 @@ function putUser(req, res){
 
 // Delete a user
 function deleteUser(req, res){
-    
+    let token = req.params.token;
+    const decoded = jwt.verify(token, config.secret);  
+    var userId = decoded.id;
+
+    User.findByIdAndRemove(userId, function (err, user) {
+        if (err){
+            res.status(500).send("Utilisateur inexistant");
+        }
+        else if(user == null){
+            res.status(200).send({error: 'Utilisateur n existe même pâs'});
+        }
+        else{
+            res.status(200).send("Utilisateur supprimé.");
+        }
+    });
 }
  
  module.exports = {

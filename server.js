@@ -53,17 +53,20 @@ const prefix = '/api';
 app.route(prefix + '/index')
   .get(user.index)
 
+app.route(prefix + '/logout')
+  .get(user.logout)
+
+app.route(prefix + '/user/:token')
+  .get(user.getUser)
+
 app.route(prefix + '/register')
   .post(user.doRegister)
 
 app.route(prefix + '/login')
   .post(user.doLogin)
 
-app.route(prefix + '/logout')
-  .get(user.logout)
-
-  app.route(prefix + '/user/:token')
-  .get(user.getUser)
+app.route(prefix + '/user/:token')
+  .delete(user.deleteUser)
 
 
 // On démarre le serveur
