@@ -25,8 +25,11 @@ var UserSchema = new mongoose.Schema({
     type :Date,
     required: true,
   },
+  role: {
+    type : String,
+    required: true,
+  },
   sexe: String,
-  role: String,
   token: String,
 });
 mongoose.model('User', UserSchema);
