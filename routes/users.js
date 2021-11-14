@@ -6,6 +6,17 @@
  var config = require('../config'); // get config file
  var User = require('../model/user');
  
+ // Type of Role users
+ const Role = {
+    Admin: "admin",
+    Guest: "guest"
+}
+
+ // index
+ function index(req,res){
+    res.send('Welcome to sayna API NODE JS');
+}
+
  // register (POST)
  function doRegister(req, res) {
     
@@ -37,13 +48,7 @@
          res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succes!`, auth: true, user:user});
      });
  }
-  
- const Role = {
-     Admin: "admin",
-     Guest: "guest"
- }
- 
- 
+
  //login (POST)
  function doLogin(req, res) {
      let userEmail = req.body.email;
@@ -109,11 +114,12 @@
      });
  }
  
- //logout (GET)
+ //logout 
  function logout(req, res) {
     res.send('L utilisateur a été déconnecté avec succes');
      res.status(200).send({ auth: true, token: null });
  }
+ 
  
  function verifyToken(req, res, next) {
      const bearerHeader = req.headers['authorization'];
@@ -124,6 +130,7 @@
              const userId = req.headers['userid'];
              User.findOne({'_id': userId}, (err, user) => {
                  if(err) {
+                     
                      res.status(401).send({error: 'Access denied'})
                  }
                  req.user = user;      
@@ -149,42 +156,39 @@
          res.status(401).send({error: 'Access denied'})
      }
  }
- 
- function createUser(user_) {
-     var hashedPassword = bcrypt.hashSync(user_.password, 8);
-     let user = new User();
-     user.firstname = user_.firstname;
-     user.lastname = user_.lastname;
-     user.date_naissance = user_.date_naissance;
-     user.sexe = user_.sexe;
-     user.email = user_.email;
-     user.role = user_.role;
-     user.password = hashedPassword; 
- 
-     console.log("POST user reçu :");
-     console.log(user);
- 
-     // if user is registered without errors
-     // create a token
-     var token = jwt.sign({ id: user._id }, config.secret, {
-         expiresIn: 86400 // expires in 24 hours
-     });
-     user.token = token;
-     user.save();
-     return user;
- }
- 
- function index(req,res){
-        res.send('Welcome to sayna API NODE JS');
- }
+
+ // Get by TOKEN a user
+function getUser(req, res){   
+    let userId = req.params.token;
+    User.findOne({ id: userId._id }, (err, user) => {
+        if (err) {
+            // verifyToken(req, res);
+            res.send('Le token envoyez n existe pas');
+            res.send(err) 
+        }
+        res.json(user);
+    })
+}
+
+// Put information of user
+function putUser(req, res){
+
+}
+
+// Delete a user
+function deleteUser(req, res){
+    
+}
  
  module.exports = {
     index,
      doRegister,
      doLogin,
      logout,
-     createUser,
      verifyToken,
+     getUser,
+     putUser,
+     deleteUser,
      Role
  };
  

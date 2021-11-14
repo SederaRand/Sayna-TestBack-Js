@@ -50,6 +50,9 @@ let port = process.env.PORT || 8010;
 // les routes
 const prefix = '/api';
 
+app.route(prefix + '/index')
+  .get(user.index)
+
 app.route(prefix + '/register')
   .post(user.doRegister)
 
@@ -59,8 +62,9 @@ app.route(prefix + '/login')
 app.route(prefix + '/logout')
   .get(user.logout)
 
-app.route(prefix + '/index')
-  .get(user.index)
+  app.route(prefix + '/user/:token')
+  .get(user.getUser)
+
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

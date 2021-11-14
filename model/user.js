@@ -23,11 +23,12 @@ var UserSchema = new mongoose.Schema({
   },
   date_naissance: {
     type :Date,
-    required: true,
+    required: true
   },
   role: {
     type : String,
-    required: true,
+    required: false,
+    default: "guest"
   },
   sexe: String,
   token: String,
