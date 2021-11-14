@@ -9,8 +9,8 @@
 
  // Type of Role users
  const Role = {
-    Admin: "admin",
-    Guest: "guest"
+    Admin: "Admin",
+    Guest: "Guest"
 }
 
  // index
@@ -55,14 +55,10 @@
      let userEmail = req.body.email;
      User.findOne({ email: userEmail }, (err, user) => {
          if (err) return res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
-         else if (!user) return res.status(404).send('No user found.');
+         else if (!user || user == null) return res.status(404).send('Erreur lors de l enregistrement');
          // check if the password is valid
          var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-         if (!passwordIsValid)
-         {
-            res.send('Nom d utilisateur ou Mot de passe incorrecte');
-            return res.status(401).send({ auth: false, token: null });
-         }
+         if (!passwordIsValid) return res.status(401).send({ auth: false, token: null, message: "Email ou Mot de passe invalide" });
 
          // if user is found and password is valid
          // create a token
@@ -87,7 +83,7 @@
                          firstname: user.firstname,
                          lastname: user.lastname
                      }
-                     res.status(200).send({ auth: true, user: response});
+                    return res.status(200).send({ auth: true, user: response, message: "Utilisateur avec un rôle Admin connecté" });
                  })
              } else if(user.role === Role.Guest) {
                  User.findOne({'identifiant._id': user._id}).exec((err, user) => {
@@ -97,21 +93,17 @@
                         firstname: user.firstname,
                         lastname: user.lastname
                     }
-                    res.send('Compte Visiteur');
-                     res.status(200).send({ auth: true, user: response});
+                    return res.status(200).send({ auth: true, user: response, message: "Utilisateur avec un rôle Visiteur connecté" });
 
                  })
              } else if(user.role === Role.Admin) {
-                 res.status(200).send({ auth: true, user: response});
-                 res.send('Compte Administrateur');
+                return res.status(200).send({ auth: true, user: response, message: "Utilisateur avec un rôle Admin connecté" });
              } else {
-                 res.status(401).send({error: 'Access refusé'});
+                return res.status(401).send({error: 'Access refusé'});
              }
          } else {
-             res.status(401).send({error: 'Access refusé'});
+            return res.status(401).send({error: 'Access refusé'});
          }
-         // return the information including token as JSON
-         //res.json(user);
      });
  }
  
@@ -132,7 +124,7 @@
              User.findOne({'_id': userId}, (err, user) => {
                  if(err) {
                      
-                     res.status(401).send({error: 'Access denied'})
+                    return res.status(401).send({error: 'Access denied'})
                  }
                  req.user = user;      
                  if(user && user.role === Role.Admin) {
@@ -152,9 +144,9 @@
              // console.log("role", user)
          }
          else
-             res.status(401).send({error: 'Access denied'})
+            return res.status(401).send({error: 'Access denied'})
      } else {
-         res.status(401).send({error: 'Access denied'})
+        return res.status(401).send({error: 'Access denied'})
      }
  }
 
@@ -163,11 +155,10 @@ function getUser(req, res){
     let userId = req.params.token;
     User.findOne({ id: userId._id }, (err, user) => {
         if (err) {
-            res.send('Le token envoyez n existe pas');
-            res.send(err) 
+            return res.send(err) 
         }
         else if(user == null){
-            res.status(200).send({error: 'Utilisateur introuvable'});
+            return res.status(200).send({error: 'Utilisateur introuvable'});
         }
         res.json(user);
     })
@@ -182,13 +173,13 @@ function putUser(req, res){
 
     User.findByIdAndUpdate(userId, userNew, function (err, user) {
         if (userNew.password != null){
-            res.status(500).send("Veuillez utilisez un autre endpoint pour modifier le mot de passe de l'utilisateur");
+            return res.status(500).send("Veuillez utilisez un autre endpoint pour modifier le mot de passe de l'utilisateur");
         }
         else if(user == null){
-            res.status(200).send({error: 'Utilisateur introuvable'});
+            return res.status(200).send({error: 'Utilisateur introuvable'});
         }
         else{
-            res.status(200).send("Utilisateur modifié avec succes.");
+            return res.status(200).send("Utilisateur modifié avec succes.");
         }
     });
 }
@@ -201,13 +192,13 @@ function deleteUser(req, res){
 
     User.findByIdAndRemove(userId, function (err, user) {
         if (err){
-            res.status(500).send("Utilisateur introuvable");
+            return res.status(500).send("Utilisateur introuvable");
         }
         else if(user == null){
-            res.status(200).send({error: 'Utilisateur introuvable'});
+            return res.status(200).send({error: 'Utilisateur introuvable'});
         }
         else{
-            res.status(200).send("Utilisateur supprimé.");
+            return res.status(200).send("Utilisateur supprimé.");
         }
     });
 }

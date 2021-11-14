@@ -28,7 +28,7 @@ var UserSchema = new mongoose.Schema({
   role: {
     type : String,
     required: false,
-    default: "guest"
+    default: "Guest"
   },
   sexe: String,
   token: String,
