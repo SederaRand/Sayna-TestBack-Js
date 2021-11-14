@@ -39,7 +39,7 @@
      user.token = token;
      user.save((err) => {        
         if (err) {
-            res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
+            return res.status(500).send('L une ou plusieurs données obligatoire sont manquantes ou email déjà.');
          }
         res.json({ message: `${user.firstname} L'utilisateur a bien été crée avec succes!`, auth: true, user:user});
      });
@@ -50,7 +50,6 @@
      let userEmail = req.body.email;
      User.findOne({ email: userEmail }, (err, user) => {
          if (err) return res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
-         else if (!user || user == null) return res.status(404).send('Utilisateur introuvable');
          else if (!user || user == null) return res.status(404).send('Utilisateur introuvable');
          // check if the password is valid
          var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
