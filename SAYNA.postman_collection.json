@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "521e406f-96e6-452e-9646-06d807cabc66",
+		"name": "SAYNA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8010/api/index",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"sa\",\r\n    \"lastname\": \"sa\",\r\n    \"email\": \"sa@gmail.com\",\r\n    \"password\": \"sa123456789\",\r\n    \"date_naissance\": \"1998-08-11\",\r\n    \"sexe\": \"masculin\",\r\n    \"role\": \"Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8010/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"email\": \"sa@gmail.com\",\r\n    \"password\": \"sa123456789\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8010/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8010/api/user/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTBlNDA3YzA1ODgzMmE2NDE3MzE0MiIsImlhdCI6MTYzNjg4NTUxMSwiZXhwIjoxNjM2OTcxOTExfQ.8HYqngYhXgD4GYFV-ICXgNvO_GMPJhRQWZNS5Gkg0OI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"user",
+								"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTBlNDA3YzA1ODgzMmE2NDE3MzE0MiIsImlhdCI6MTYzNjg4NTUxMSwiZXhwIjoxNjM2OTcxOTExfQ.8HYqngYhXgD4GYFV-ICXgNvO_GMPJhRQWZNS5Gkg0OI"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8010/api/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8010/api/user/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTEwNzdmY2Q0YWU0MjhjMGQxODI3ZSIsImlhdCI6MTYzNjg5NDU5MSwiZXhwIjoxNjM2OTgwOTkxfQ.sblTCKUip4uVuBlTN9N5yeu9A4BvpmvnsspjjYOpzn4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"user",
+								"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTEwNzdmY2Q0YWU0MjhjMGQxODI3ZSIsImlhdCI6MTYzNjg5NDU5MSwiZXhwIjoxNjM2OTgwOTkxfQ.sblTCKUip4uVuBlTN9N5yeu9A4BvpmvnsspjjYOpzn4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"sa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8010/api/user/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTBlNDA3YzA1ODgzMmE2NDE3MzE0MiIsImlhdCI6MTYzNjg4NTUxMSwiZXhwIjoxNjM2OTcxOTExfQ.8HYqngYhXgD4GYFV-ICXgNvO_GMPJhRQWZNS5Gkg0OI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"user",
+								"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTBlNDA3YzA1ODgzMmE2NDE3MzE0MiIsImlhdCI6MTYzNjg4NTUxMSwiZXhwIjoxNjM2OTcxOTExfQ.8HYqngYhXgD4GYFV-ICXgNvO_GMPJhRQWZNS5Gkg0OI"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putPasswordUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"sa123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8010/api/user/changePassword/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTBlNDA3YzA1ODgzMmE2NDE3MzE0MiIsImlhdCI6MTYzNjg4NTUxMSwiZXhwIjoxNjM2OTcxOTExfQ.8HYqngYhXgD4GYFV-ICXgNvO_GMPJhRQWZNS5Gkg0OI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8010",
+							"path": [
+								"api",
+								"user",
+								"changePassword",
+								"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTBlNDA3YzA1ODgzMmE2NDE3MzE0MiIsImlhdCI6MTYzNjg4NTUxMSwiZXhwIjoxNjM2OTcxOTExfQ.8HYqngYhXgD4GYFV-ICXgNvO_GMPJhRQWZNS5Gkg0OI"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
