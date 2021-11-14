@@ -51,6 +51,7 @@
      User.findOne({ email: userEmail }, (err, user) => {
          if (err) return res.status(500).send('L une ou plusieurs données obligatoire sont manquantes.');
          else if (!user || user == null) return res.status(404).send('Utilisateur introuvable');
+         else if (!user || user == null) return res.status(404).send('Utilisateur introuvable');
          // check if the password is valid
          var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
          if (!passwordIsValid) return res.status(401).send({ auth: false, token: null, message: "Email ou Mot de passe invalide" });
